@@ -1,3 +1,7 @@
+/*
+https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-psrp/c69507e9-370e-49f0-86df-16d8aadfa79b
+*/
+
 import { XMLParser } from 'fast-xml-parser';
 
 import fs from 'fs';

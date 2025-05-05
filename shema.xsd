@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <xsd:schema
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:ps="http://schemas.microsoft.com/powershell/2004/04"
+   targetNamespace="http://schemas.microsoft.com/powershell/2004/04"
+   elementFormDefault="qualified"
+   version="1.1.0.1">
+  
+   <!-- ## TOP-LEVEL ELEMENT ######################################### -->
+  
+   <xsd:element name="Objs">
+     <xsd:complexType>
+       <xsd:complexContent>
+         <xsd:extension base="ps:ListContents">
+           <xsd:attribute name="Version" type="ps:VersionString" use="required" fixed="1.1.0.1"/>
+         </xsd:extension>
+       </xsd:complexContent>
+     </xsd:complexType>
+  
+     <xsd:unique name="TypeNameKey">
+       <xsd:selector xpath=".//ps:TN" />
+       <xsd:field xpath="@RefId" />
+     </xsd:unique>
+     <xsd:keyref name="TypeNameKeyRef" refer="ps:TypeNameKey">
+       <xsd:annotation>
+         <xsd:documentation>
+           <!-- EXTRA CONSTRAINT -->
+           Note: ps:TNRef element can only refer to earlier ps:TN elements.
+         </xsd:documentation>
+       </xsd:annotation>
+       <xsd:selector xpath=".//ps:TNRef" />
+       <xsd:field xpath="@RefId" />
+     </xsd:keyref>
+  
+     <xsd:unique name="ObjectKey">
+       <xsd:selector xpath=".//ps:Obj" />
+       <xsd:field xpath="@RefId" />
+     </xsd:unique>
+     <xsd:keyref name="ObjectKeyRef" refer="ps:ObjectKey">
+       <xsd:annotation>
+         <xsd:documentation>
+           <!-- EXTRA CONSTRAINT -->
+           Note: ps:Ref element can only refer to earlier ps:Obj elements.
+         </xsd:documentation>
+       </xsd:annotation>
+       <xsd:selector xpath=".//ps:Ref" />
+       <xsd:field xpath="@RefId" />
+     </xsd:keyref>
+   </xsd:element>
+  
+   <!-- ## COMPLEX OBJECT ################################################ -->
+  
+   <xsd:group name="ComplexObject">
+     <xsd:sequence>
+       <xsd:element name="Obj">
+  
+         <xsd:complexType>
+           <xsd:sequence>
+             <xsd:group ref="ps:TypeNames" minOccurs="0" maxOccurs="1" />
+             <xsd:element name="ToString" type="ps:EscapedString" minOccurs="0" maxOccurs="1">
+               <xsd:annotation>
+                 <xsd:documentation>
+                   A string that represents the object.
+                 </xsd:documentation>
+               </xsd:annotation>
+             </xsd:element>
+             <xsd:choice>
+               <xsd:sequence id="PrimitiveValueWithInstanceProperties">
+                 <xsd:group ref="ps:PrimitiveValue" />
+                 <xsd:group ref="ps:MS" minOccurs="0" maxOccurs="1" />
+               </xsd:sequence>
+               <xsd:sequence id="KnownContainer">
+                 <xsd:group ref="ps:KnownContainer" />
+                 <xsd:group ref="ps:Props" minOccurs="0" maxOccurs="1" />
+                 <xsd:group ref="ps:MS" minOccurs="0" maxOccurs="1" />
+               </xsd:sequence>
+               <xsd:sequence id="ComplexObject">
+                 <xsd:choice minOccurs="0" maxOccurs="1">
+                   <xsd:group ref="ps:ComplexObject" id="PSObjectWrapperInPSObject" />
+                   <xsd:group ref="ps:Props" />
+                 </xsd:choice>
+                 <xsd:group ref="ps:MS" minOccurs="0" maxOccurs="1" />
+               </xsd:sequence>
+             </xsd:choice>
+           </xsd:sequence>
+           <xsd:attributeGroup ref="ps:ObjectAttributes" />
+           <xsd:attribute name="RefId" type="xsd:string" use="optional" />
+         </xsd:complexType>
+  
+         <xsd:key name="UniquePropertyNamesWithinObject">
+           <xsd:selector xpath="./ps:Props/*|./ps:MS/*" />
+           <xsd:field xpath="@N" />
+         </xsd:key>
+  
+       </xsd:element>
+  
+     </xsd:sequence>    
+   </xsd:group>
+   
+   <!-- ## ANY OBJECT ################################################ -->
+  
+   <xsd:group name="AnyObject">
+     <xsd:choice>
+  
+       <!-- ## PRIMITIVE OBJECT ########################################## -->
+  
+       <xsd:group ref="ps:PrimitiveValue" />
+  
+       <!-- ## REFERENCING EARLIER OBJECTS ############################### -->
+  
+       <xsd:element name="Ref">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a reference to an earlier ps:Obj element.
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:attributeGroup ref="ps:ObjectAttributes" />
+           <xsd:attribute name="RefId" type="xsd:string" use="required" />
+         </xsd:complexType>
+       </xsd:element>
+  
+       <!-- ## COMPLEX OBJECTS ########################################### -->
+  
+       <xsd:group ref="ps:ComplexObject" />
+  
+     </xsd:choice>
+   </xsd:group>
+  
+   <!-- ## PROPERTIES OF AN OBJECT ################################### -->
+  
+   <xsd:group name="Props">
+     <xsd:sequence>
+       <xsd:element name="Props" type="ps:ListContents">
+         <xsd:annotation>
+           <xsd:documentation>
+             Lists adapted properties of an object.
+           </xsd:documentation>
+         </xsd:annotation>
+       </xsd:element>
+     </xsd:sequence>
+   </xsd:group>
+  
+   <xsd:group name="MS">
+     <xsd:sequence>
+       <xsd:element name="MS">
+         <xsd:annotation>
+           <xsd:documentation>
+             Lists extended properties of an object.
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:choice minOccurs="0" maxOccurs="unbounded">
+             <xsd:group ref="ps:AnyObject" />
+             <xsd:group ref="ps:MS" />
+           </xsd:choice>
+           <xsd:attribute name="N" type="ps:EscapedString" use="optional" />
+         </xsd:complexType>
+         <xsd:key name="UniquePropertyNamesWithinMemberSet">
+           <xsd:selector xpath="./ps:*" />
+           <xsd:field xpath="@N" />
+         </xsd:key>
+       </xsd:element>
+     </xsd:sequence>
+   </xsd:group>
+  
+   <!-- ## TOSTRING ################################################## -->
+  
+   <!-- ## TYPE NAMES ################################################ -->
+  
+   <xsd:group name="TypeNames">
+     <xsd:annotation>
+       <xsd:documentation>
+         Description of the type of the object.
+  
+         Example:
+         System.Drawing.Point
+         System.ValueType
+         System.Object
+       </xsd:documentation>
+     </xsd:annotation>
+     <xsd:choice>
+  
+       <xsd:element name="TN">
+         <xsd:complexType>
+           <xsd:sequence>
+             <xsd:element name="T" minOccurs="0" maxOccurs="unbounded">
+               <xsd:simpleType>
+                 <xsd:restriction base="ps:EscapedString">
+                   <xsd:minLength value="1" />
+                 </xsd:restriction>
+               </xsd:simpleType>
+             </xsd:element>
+           </xsd:sequence>
+           <xsd:attribute name="RefId" type="xsd:string" use="optional" />
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="TNRef">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a reference to an earlier ps:TN element.
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:attribute name="RefId" type="xsd:string" use="required" />
+         </xsd:complexType>
+       </xsd:element>
+  
+     </xsd:choice>
+   </xsd:group>
+  
+   <!-- ## KNOWN CONTAINER ########################################### -->
+  
+   <xsd:complexType name="ListContents">
+     <xsd:sequence maxOccurs="unbounded">
+       <xsd:group ref="ps:AnyObject" minOccurs="0" />
+     </xsd:sequence>
+   </xsd:complexType>
+  
+   <xsd:group name="KnownContainer">
+     <xsd:choice>
+  
+       <xsd:element name="STK" type="ps:ListContents">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a stack container - a data structure for accessing a collection of items based on a last-in, first-out order.
+             Children of ps:STK element represent items on the stack;  the first child is the topmost item (the first item to be removed from the stack).
+           </xsd:documentation>
+         </xsd:annotation>
+       </xsd:element>
+  
+       <xsd:element name="QUE" type="ps:ListContents">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a queue container - a data structure for accessing a collection of items based on a first-in, first-out order.
+             Children of ps:QUE element represent items in the queue;  the first child is the first item (the first item to be removed from the queue).
+           </xsd:documentation>
+         </xsd:annotation>
+       </xsd:element>
+  
+       <xsd:element name="LST" type="ps:ListContents">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a list container - an ordered collection of items.
+             Can be used interchangably with ps:IE element.
+           </xsd:documentation>
+         </xsd:annotation>
+       </xsd:element>
+  
+       <xsd:element name="IE" type="ps:ListContents">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a list container - an ordered collection of items.
+             Can be used interchangably with ps:LST element.
+           </xsd:documentation>
+         </xsd:annotation>
+       </xsd:element>
+  
+       <xsd:element name="DCT">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a dictionary - a collection of keys and a collection of values in which every key is associated with one value.
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:sequence>
+             <xsd:element name="En" minOccurs="0" maxOccurs="unbounded">
+               <xsd:complexType>
+                 <xsd:sequence>
+                   <xsd:group ref="ps:AnyObject">
+                     <xsd:annotation>
+                       <xsd:documentation>
+                         This ps:AnyObject element represents a dictionary key.
+  
+                         <!-- EXTRA CONSTRAINT -->
+                         Note: this ps:AnyObject element MUST have its N attribute set as follows: N="Key"
+  
+                         <!-- EXTRA CONSTRAINT -->
+                         Note: this ps:AnyObject element MUST NOT be an ps:Nil element
+                       </xsd:documentation>
+                     </xsd:annotation>
+                   </xsd:group>
+                   <xsd:group ref="ps:AnyObject">
+                     <xsd:annotation>
+                       <xsd:documentation>
+                         This ps:AnyObject element represents a dictionary value.
+  
+                         <!-- EXTRA CONSTRAINT -->
+                         Note: this ps:AnyObject element MUST have its N attribute set as follows: N="Value"
+                       </xsd:documentation>
+                     </xsd:annotation>
+                   </xsd:group>
+                 </xsd:sequence>
+               </xsd:complexType>
+               <xsd:key name="ChildrenOfEnElementRequireNAttribute">
+                 <xsd:selector xpath="./*" />
+                 <xsd:field xpath="@N" />
+               </xsd:key>
+             </xsd:element>
+           </xsd:sequence>
+         </xsd:complexType>
+       </xsd:element>
+  
+     </xsd:choice>
+   </xsd:group>
+  
+   <!-- ## PRIMITIVE VALUES ########################################## -->
+  
+   <xsd:group name="S">
+     <xsd:sequence>
+       <xsd:element name="S">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="ps:EscapedString">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+     </xsd:sequence>
+   </xsd:group>
+  
+   <xsd:group name="Nil">
+     <xsd:sequence>
+       <xsd:element name="Nil">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a NULL value.
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:attributeGroup ref="ps:ObjectAttributes" />
+         </xsd:complexType>
+       </xsd:element>
+     </xsd:sequence>
+   </xsd:group>
+  
+   <xsd:group name="PrimitiveValue">
+     <xsd:choice>
+  
+       <xsd:group ref="ps:S" />
+       <xsd:group ref="ps:Nil" />
+  
+       <xsd:element name="C">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a single Unicode character.
+             The content is a numeric value (code point) of a Unicode character.
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:unsignedShort">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="B">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:boolean">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="DT">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:dateTime">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="TS">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:duration">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="By">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:unsignedByte">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="SB">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:byte">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="U16">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:unsignedShort">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="I16">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:short">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="U32">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:unsignedInt">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="I32">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:int">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="U64">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:unsignedLong">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="I64">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:long">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="Sg">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:float">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="Db">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:double">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="D">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:decimal">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="BA">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents an array of bytes.
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:base64Binary">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="G">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="ps:GuidString">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="URI">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a Uniform Resource Identifier (URI) reference as defined in Section 4 of [RFC2396], as amended by [RFC2732].
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="ps:EscapedString">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="Version">
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="ps:VersionString">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="XD">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents an XML document.
+             Content of this element MUST be an XML document represented as a string.
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="ps:EscapedString">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="SBK">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a block of PowerShell script.
+             Content of this element MUST be the script represented as a string.
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="ps:EscapedString">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="SS">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents a security-sensitive string (which should be encrypted when in transit and when in memory).
+  
+             The contents of the security-sensitive string are encrypted
+             with the AES-256 algorithm [FIPS197] in Cipher Block Chaining Mod as specified in [SP800-38A] section 6.2
+             and encoded in base64 format.
+  
+             The encryption key can be obtained in the following ways:
+             1) PSRP: by performing key exchange as described in section "4.2.4 Client-Initiated Transfer of Session Key"
+             and in section "4.2.5 Server-Initiated Transfer of Session Key"
+             2) other scenarios: SS element is not supported
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:simpleContent>
+             <xsd:extension base="xsd:base64Binary">
+               <xsd:attributeGroup ref="ps:ObjectAttributes" />
+             </xsd:extension>
+           </xsd:simpleContent>
+         </xsd:complexType>
+       </xsd:element>
+  
+       <xsd:element name="PR">
+         <xsd:annotation>
+           <xsd:documentation>
+             Represents the status of an ongoing operation at a point in time.
+           </xsd:documentation>
+         </xsd:annotation>
+         <xsd:complexType>
+           <xsd:sequence>
+             <xsd:element name="AV">
+               <xsd:annotation>
+                 <xsd:documentation>
+                   Textual description of the activity for which progress is being reported.
+                 </xsd:documentation>
+               </xsd:annotation>
+               <xsd:simpleType>
+                 <xsd:restriction base="ps:EscapedString">
+                   <xsd:minLength value="1" />
+                 </xsd:restriction>
+               </xsd:simpleType>
+             </xsd:element>
+             <xsd:element name="AI">
+               <xsd:annotation>
+                 <xsd:documentation>
+                   Identifier of the activity for which progress is being reported.
+                 </xsd:documentation>
+               </xsd:annotation>
+               <xsd:simpleType>
+                 <xsd:restriction base="xsd:int">
+                   <xsd:minInclusive value="0" />
+                 </xsd:restriction>
+               </xsd:simpleType>
+             </xsd:element>
+             <xsd:choice>
+               <xsd:annotation>
+                 <xsd:documentation>
+                   Description of the current operation of the many required to accomplish the activity.
+                   (for example "activity" can be copying of a whole directory and "operation" can be copying of an individual file).
+                 </xsd:documentation>
+               </xsd:annotation>
+               <xsd:group ref="ps:Nil" />
+               <xsd:group ref="ps:S" />
+             </xsd:choice>
+             <xsd:element name="PI" type="xsd:int">
+               <xsd:annotation>
+                 <xsd:documentation>
+                   Identifier of the parent activity for which this progress record is a subordinate.
+                   A negative value indicates that the activity for which progress is being reported has no parent.
+                 </xsd:documentation>
+               </xsd:annotation>
+             </xsd:element>
+             <xsd:element name="PC">
+               <xsd:annotation>
+                 <xsd:documentation>
+                   Estimate of the percentage of total work that is completed for the activity.
+                   A negative value indicates that no estimate is available.
+                 </xsd:documentation>
+               </xsd:annotation>
+               <xsd:simpleType>
+                 <xsd:restriction base="xsd:int">
+                   <xsd:maxInclusive value="100" />
+                 </xsd:restriction>
+               </xsd:simpleType>
+             </xsd:element>
+             <xsd:element name="T">
+               <xsd:annotation>
+                 <xsd:documentation>
+                   Indication if the activity is still in progress or if it has already completed.
+                 </xsd:documentation>
+               </xsd:annotation>
+               <xsd:simpleType>
+                 <xsd:restriction base="xsd:string">
+                   <xsd:enumeration value="Processing" />
+                   <xsd:enumeration value="Completed" />
+                 </xsd:restriction>
+               </xsd:simpleType>
+             </xsd:element>
+             <xsd:element name="SR" type="xsd:int">
+               <xsd:annotation>
+                 <xsd:documentation>
+                   Estimation of the time needed to complete the activity for which progress is being reported.
+                   A negative value indicates that no estimate is available.
+                 </xsd:documentation>
+               </xsd:annotation>
+             </xsd:element>
+             <xsd:element name="SD">
+               <xsd:annotation>
+                 <xsd:documentation>
+                   The current status of the operation.
+                   For example: "35 of 50 items copied".
+                 </xsd:documentation>
+               </xsd:annotation>
+               <xsd:simpleType>
+                 <xsd:restriction base="ps:EscapedString">
+                   <xsd:minLength value="1" />
+                 </xsd:restriction>
+               </xsd:simpleType>
+             </xsd:element>
+           </xsd:sequence>
+         </xsd:complexType>
+         <xsd:unique name="AI_notEqual_PI">
+           <xsd:selector xpath=".//ps:AI|.//ps:PI" />
+           <xsd:field xpath="." />
+         </xsd:unique>
+       </xsd:element>
+  
+     </xsd:choice>
+   </xsd:group>
+  
+   <!-- ## SIMPLE TYPES ############################################## -->
+  
+   <xsd:simpleType name="EscapedString">
+     <xsd:annotation>
+       <xsd:documentation>
+         This type represents an arbitrary string of Unicode characters, encoded as described below.
+  
+         This type is needed, because some strings require encoding before they can be used in XML output.
+         Example1: in PowerShell any string can be used as names of an object property - such a property name needs to be encoded before it can be used in an xml attribute.
+         Example2: valid PowerShell strings can include invalid surrogate pairs for example - such a string needs to be encoded before it can be used in an xml document.
+  
+         The encoding translates some characters into escaped numeric entity encodings.
+         The escape character is "_".
+         Control characters and surrogate characters SHOULD be escaped as _xHHHH_,
+         where HHHH string stands for the four-digit hexadecimal UCS-2 code for the character in most significant bit first order.
+         Other characters MAY also be escaped as _xHHHH_.
+         For example, the "Order\nDetails" is encoded as: "Order_x000A_Details".
+  
+         The underscore character only requires escaping when it is followed by a character sequence that,
+         together with the underscore,
+         can be misinterpreted as an escape sequence when decoding the name.
+         For example, Order_Details is not encoded, but Order_x0020_ is encoded as Order_x005f_x0020_.
+  
+         No short forms are recognized. For example, the forms _x20_ and __ are not expanded when decoding the string.
+  
+         Note: for more information see MSDN documentation for EncodeName and DecodeName methods of System.Xml.XmlConvert class:
+         http://msdn.microsoft.com/en-us/library/system.xml.xmlconvert.encodename.aspx
+         http://msdn.microsoft.com/en-us/library/system.xml.xmlconvert.decodename.aspx
+       </xsd:documentation>
+     </xsd:annotation>
+     <xsd:restriction base="xsd:string" />
+   </xsd:simpleType>
+  
+   <xsd:simpleType name="StreamName">
+     <xsd:annotation>
+       <xsd:documentation>
+         This type represents name of a PowerShell stream.
+       </xsd:documentation>
+     </xsd:annotation>
+     <xsd:restriction base="xsd:string">
+       <xsd:enumeration value="debug" />
+       <xsd:enumeration value="verbose" />
+       <xsd:enumeration value="warning" />
+       <xsd:enumeration value="progress" />
+       <xsd:enumeration value="Error" />
+       <xsd:enumeration value="Output" />
+     </xsd:restriction>
+   </xsd:simpleType>
+  
+   <xsd:simpleType name="VersionString">
+     <xsd:annotation>
+       <xsd:documentation>
+         Represents a version number that consist of two to four components: major, minor, build, and revision.
+         String representation of a version is "major.minor[.build[.revision]]" (optional components are shown in square brackets).
+         All defined components MUST be integers greater than or equal to 0.
+         For example, if the major number is 6, the minor number is 2, the build number is 1, and the revision number is 3, then string representation of the version would be "6.2.1.3".
+       </xsd:documentation>
+     </xsd:annotation>
+     <xsd:restriction base="xsd:string">
+       <xsd:pattern value="[12]?[0-9]{1,9}\.[12]?[0-9]{1,9}(\.[12]?[0-9]{1,9}(\.[12]?[0-9]{1,9})?)?" />
+     </xsd:restriction>
+   </xsd:simpleType>
+  
+   <xsd:simpleType name="GuidString">
+     <xsd:annotation>
+       <xsd:documentation>
+         This type represents a 16-byte (128-bit) number which is assumed to be unique in any context as defined in [RFC4122].
+         Example: 792e5b37-4505-47ef-b7d2-8711bb7affa8
+       </xsd:documentation>
+     </xsd:annotation>
+     <xsd:restriction base="xsd:string">
+       <xsd:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+     </xsd:restriction>
+   </xsd:simpleType>
+  
+   <!-- ## COMMON ATTRIBUTES ######################################### -->
+  
+   <xsd:attributeGroup name="ObjectAttributes">
+     <xsd:attribute name="S" type="ps:StreamName" use="optional">
+       <xsd:annotation>
+         <xsd:documentation>
+           This attribute identifies a stream associated with an object.
+           This attribute MUST NOT be used when CliXml is used in PSRP.
+         </xsd:documentation>
+       </xsd:annotation>
+     </xsd:attribute>
+     <xsd:attribute name="N" type="ps:EscapedString" use="optional">
+       <xsd:annotation>
+         <xsd:documentation>
+           For objects that represent a value of a named property, this attribute identifies the name of the property.
+         </xsd:documentation>
+       </xsd:annotation>
+     </xsd:attribute>
+   </xsd:attributeGroup>
+  
+ </xsd:schema>
