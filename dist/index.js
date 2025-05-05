@@ -1,7 +1,11 @@
+/*
+https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-psrp/c69507e9-370e-49f0-86df-16d8aadfa79b
+*/
 import { XMLParser } from 'fast-xml-parser';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { convertObject } from './converter.js';
 //read test.xml file from the current directory
 // Resolve the directory name using import.meta.url
 const __filename = fileURLToPath(import.meta.url);
@@ -23,4 +27,10 @@ console.log(JSON.stringify(jsonData, null, 2));
 // write the jsonData to a file
 const outputFilePath = path.resolve(__dirname, 'output.json');
 fs.writeFileSync(outputFilePath, JSON.stringify(jsonData, null, 2), 'utf-8');
+// convert JSON
+const convertedJsonData = convertObject(jsonData);
+console.log(JSON.stringify(convertedJsonData, null, 2));
+// write the convertedJsonData to a file
+const convertedOutputFilePath = path.resolve(__dirname, 'converted-output.json');
+fs.writeFileSync(convertedOutputFilePath, JSON.stringify(convertedJsonData, null, 2), 'utf-8');
 //# sourceMappingURL=index.js.map

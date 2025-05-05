@@ -19,7 +19,6 @@ export function convertObject(input: any): any {
         return output;
     }
 
-``
     for (const property in input) {
         console.log(`${property}: ${input[property]}`);
         if (property === "S" 
