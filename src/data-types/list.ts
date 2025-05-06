@@ -1,7 +1,6 @@
 import { convertObject } from "../converter.js";
 
 export function convertList(input: any): any {
-    console.log("List input", input);
     const output: any[] = [];
 
     for (const key1 in input) {
@@ -34,7 +33,6 @@ export function convertList(input: any): any {
         }
     }
 
-    console.log("List output", output);
     return output;
 }
 
