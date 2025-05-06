@@ -3,6 +3,8 @@ import { convertString } from "./data-types/string.js";
 import { convertBoolean } from "./data-types/boolean.js";
 import { convertInteger } from "./data-types/integer.js";
 import { convertDecimal } from "./data-types/decimal.js";
+import { convertList } from "./data-types/list.js";
+import { convertObj } from "./data-types/obj.js";
 export function convertObject(input) {
     let output = {};
     if (input["Objs"] && typeof input["Objs"] === "object") {
@@ -15,14 +17,19 @@ export function convertObject(input) {
         return output;
     }
     for (const property in input) {
-        console.log(`${property}: ${input[property]}`);
-        if (property === "S"
+        if (property === "Obj") {
+            const propertyValue = convertObj(input, property);
+            output = { ...output, ...propertyValue };
+        }
+        else if (property === "S"
             || property === "DT"
             || property === "TS"
             || property === "G"
             || property === "URI"
             || property === "ToString"
-            || property === "Version") {
+            || property === "Version"
+            || property === "Nil"
+            || property === "C") {
             const propertyValue = convertString(input, property);
             output = { ...output, ...propertyValue };
         }
@@ -39,6 +46,19 @@ export function convertObject(input) {
         else if (property === "D" || property === "Db" || property === "Sg") {
             const propertyValue = convertDecimal(input, property);
             output = { ...output, ...propertyValue };
+        }
+        else if (property === "Props"
+            || property === "MS") {
+            // spread the properties into the output object
+            const propertyValue = convertObject(input[property]);
+            output = { ...output, ...propertyValue };
+        }
+        else if (property === "@_N"
+            || property === "@_Version"
+            || property === "@_xmlns"
+            || property === "@_RefId") {
+            // Ignore the attribute name property
+            continue;
         }
         else {
             output[property] = input[property];

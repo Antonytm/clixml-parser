@@ -23,13 +23,13 @@ const parser = new XMLParser({
 // Parse the XML data
 const jsonData = parser.parse(xmlData);
 // Log the parsed JSON data to the console
-console.log(JSON.stringify(jsonData, null, 2));
+//console.log(JSON.stringify(jsonData, null, 2));
 // write the jsonData to a file
 const outputFilePath = path.resolve(__dirname, 'output.json');
 fs.writeFileSync(outputFilePath, JSON.stringify(jsonData, null, 2), 'utf-8');
 // convert JSON
 const convertedJsonData = convertObject(jsonData);
-console.log(JSON.stringify(convertedJsonData, null, 2));
+//console.log(JSON.stringify(convertedJsonData, null, 2));
 // write the convertedJsonData to a file
 const convertedOutputFilePath = path.resolve(__dirname, 'converted-output.json');
 fs.writeFileSync(convertedOutputFilePath, JSON.stringify(convertedJsonData, null, 2), 'utf-8');
