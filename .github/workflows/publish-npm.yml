@@ -1,4 +1,4 @@
-name: Publish @antonytm/clixml-parser to NPM registry
+name: Publish @antonytm/mcp-sitecore-server to NPM registry
 on:
   release:
     types: [created]
@@ -19,6 +19,8 @@ jobs:
       - name: Build package
         working-directory: .
         run: npm run build
-      - name: Run tests
+      - name: Publish package on NPM 📦
         working-directory: .
-        run: npm run test
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -19,8 +19,6 @@ jobs:
       - name: Build package
         working-directory: .
         run: npm run build
-      - name: Publish package on NPM 📦
+      - name: Run tests
         working-directory: .
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm run test
