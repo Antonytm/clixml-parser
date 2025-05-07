@@ -9,5 +9,5 @@ const parser = new XMLParser({
     parseTagValue: true,
 });
 
-const parseObject = parser.parse;
-export { parseObject };
+const parseXMLString = parser.parse;
+export { parseXMLString };
