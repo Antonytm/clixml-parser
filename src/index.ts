@@ -8,6 +8,7 @@ const parseXMLString = function (xmlString: string): any {
         attributeNamePrefix: '@_',
         parseAttributeValue: true,
         parseTagValue: true,
+        
     });
     
     return parser.parse(xmlString);

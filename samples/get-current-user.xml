@@ -1,21 +1,21 @@
-"<Objs Version=\"1.1.0.1\"
-    xmlns=\"http://schemas.microsoft.com/powershell/2004/04\">
-    <Obj RefId=\"0\">
-        <TN RefId=\"0\">
+"<Objs Version="1.1.0.1"
+    xmlns="http://schemas.microsoft.com/powershell/2004/04">
+    <Obj RefId="0">
+        <TN RefId="0">
             <T>System.Collections.Generic.List`1[[System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</T>
             <T>System.Object</T>
         </TN>
         <LST>
-            <Obj RefId=\"1\">
-                <TN RefId=\"1\">
+            <Obj RefId="1">
+                <TN RefId="1">
                     <T>System.Management.Automation.ErrorRecord</T>
                     <T>System.Object</T>
                 </TN>
                 <ToString>Cannot process command because of one or more missing mandatory parameters: Identity.</ToString>
                 <MS>
-                    <B N=\"writeErrorStream\">true</B>
-                    <Obj N=\"Exception\" RefId=\"2\">
-                        <TN RefId=\"2\">
+                    <B N="writeErrorStream">true</B>
+                    <Obj N="Exception" RefId="2">
+                        <TN RefId="2">
                             <T>System.Management.Automation.ParameterBindingException</T>
                             <T>System.Management.Automation.RuntimeException</T>
                             <T>System.SystemException</T>
@@ -24,26 +24,26 @@
                         </TN>
                         <ToString>System.Management.Automation.ParameterBindingException: Cannot process command because of one or more missing mandatory parameters: Identity._x000D__x000A_   at System.Management.Automation.CmdletParameterBinderController.PromptForMissingMandatoryParameters(Collection`1 fieldDescriptionList, Collection`1 missingMandatoryParameters)_x000D__x000A_   at System.Management.Automation.CmdletParameterBinderController.HandleUnboundMandatoryParameters(Int32 validParameterSetCount, Boolean processMissingMandatory, Boolean promptForMandatory, Boolean isPipelineInputExpected, Collection`1&amp; missingMandatoryParameters)_x000D__x000A_   at System.Management.Automation.CmdletParameterBinderController.BindCommandLineParameters(Collection`1 arguments)_x000D__x000A_   at System.Management.Automation.CommandProcessor.BindCommandLineParameters()_x000D__x000A_   at System.Management.Automation.CommandProcessor.Prepare(IDictionary psDefaultParameterValues)_x000D__x000A_   at System.Management.Automation.CommandProcessorBase.DoPrepare(IDictionary psDefaultParameterValues)_x000D__x000A_   at System.Management.Automation.Internal.PipelineProcessor.Start(Boolean incomingStream)_x000D__x000A_   at System.Management.Automation.Internal.PipelineProcessor.SynchronousExecuteEnumerate(Object input)_x000D__x000A_--- End of stack trace from previous location where exception was thrown ---_x000D__x000A_   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()_x000D__x000A_   at System.Management.Automation.Internal.PipelineProcessor.SynchronousExecuteEnumerate(Object input)_x000D__x000A_   at System.Management.Automation.PipelineOps.InvokePipeline(Object input, Boolean ignoreInput, CommandParameterInternal[][] pipeElements, CommandBaseAst[] pipeElementAsts, CommandRedirection[][] commandRedirections, FunctionContext funcContext)_x000D__x000A_   at System.Management.Automation.Interpreter.ActionCallInstruction`6.Run(InterpretedFrame frame)_x000D__x000A_   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)</ToString>
                         <Props>
-                            <S N=\"Message\">Cannot process command because of one or more missing mandatory parameters: Identity.</S>
-                            <S N=\"ParameterName\"> Identity</S>
-                            <Nil N=\"ParameterType\" />
-                            <Nil N=\"TypeSpecified\" />
-                            <S N=\"ErrorId\">MissingMandatoryParameter</S>
-                            <I64 N=\"Line\">1</I64>
-                            <I64 N=\"Offset\">1</I64>
-                            <S N=\"CommandInvocation\">System.Management.Automation.InvocationInfo</S>
-                            <S N=\"ErrorRecord\">Cannot process command because of one or more missing mandatory parameters: Identity.</S>
-                            <B N=\"WasThrownFromThrowStatement\">false</B>
-                            <Obj N=\"Data\" RefId=\"3\">
-                                <TN RefId=\"3\">
+                            <S N="Message">Cannot process command because of one or more missing mandatory parameters: Identity.</S>
+                            <S N="ParameterName"> Identity</S>
+                            <Nil N="ParameterType" />
+                            <Nil N="TypeSpecified" />
+                            <S N="ErrorId">MissingMandatoryParameter</S>
+                            <I64 N="Line">1</I64>
+                            <I64 N="Offset">1</I64>
+                            <S N="CommandInvocation">System.Management.Automation.InvocationInfo</S>
+                            <S N="ErrorRecord">Cannot process command because of one or more missing mandatory parameters: Identity.</S>
+                            <B N="WasThrownFromThrowStatement">false</B>
+                            <Obj N="Data" RefId="3">
+                                <TN RefId="3">
                                     <T>System.Collections.ListDictionaryInternal</T>
                                     <T>System.Object</T>
                                 </TN>
                                 <DCT>
                                     <En>
-                                        <S N=\"Key\">System.Management.Automation.Interpreter.InterpretedFrameInfo</S>
-                                        <Obj N=\"Value\" RefId=\"4\">
-                                            <TN RefId=\"4\">
+                                        <S N="Key">System.Management.Automation.Interpreter.InterpretedFrameInfo</S>
+                                        <Obj N="Value" RefId="4">
+                                            <TN RefId="4">
                                                 <T>System.Management.Automation.Interpreter.InterpretedFrameInfo[]</T>
                                                 <T>System.Array</T>
                                                 <T>System.Object</T>
@@ -55,41 +55,41 @@
                                     </En>
                                 </DCT>
                             </Obj>
-                            <Nil N=\"InnerException\" />
-                            <S N=\"TargetSite\">System.Collections.Generic.Dictionary`2[System.String,System.Management.Automation.PSObject] PromptForMissingMandatoryParameters(System.Collections.ObjectModel.Collection`1[System.Management.Automation.Host.FieldDescription], System.Collections.ObjectModel.Collection`1[System.Management.Automation.MergedCompiledCommandParameter])</S>
-                            <S N=\"StackTrace\">   at System.Management.Automation.CmdletParameterBinderController.PromptForMissingMandatoryParameters(Collection`1 fieldDescriptionList, Collection`1 missingMandatoryParameters)_x000D__x000A_   at System.Management.Automation.CmdletParameterBinderController.HandleUnboundMandatoryParameters(Int32 validParameterSetCount, Boolean processMissingMandatory, Boolean promptForMandatory, Boolean isPipelineInputExpected, Collection`1&amp; missingMandatoryParameters)_x000D__x000A_   at System.Management.Automation.CmdletParameterBinderController.BindCommandLineParameters(Collection`1 arguments)_x000D__x000A_   at System.Management.Automation.CommandProcessor.BindCommandLineParameters()_x000D__x000A_   at System.Management.Automation.CommandProcessor.Prepare(IDictionary psDefaultParameterValues)_x000D__x000A_   at System.Management.Automation.CommandProcessorBase.DoPrepare(IDictionary psDefaultParameterValues)_x000D__x000A_   at System.Management.Automation.Internal.PipelineProcessor.Start(Boolean incomingStream)_x000D__x000A_   at System.Management.Automation.Internal.PipelineProcessor.SynchronousExecuteEnumerate(Object input)_x000D__x000A_--- End of stack trace from previous location where exception was thrown ---_x000D__x000A_   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()_x000D__x000A_   at System.Management.Automation.Internal.PipelineProcessor.SynchronousExecuteEnumerate(Object input)_x000D__x000A_   at System.Management.Automation.PipelineOps.InvokePipeline(Object input, Boolean ignoreInput, CommandParameterInternal[][] pipeElements, CommandBaseAst[] pipeElementAsts, CommandRedirection[][] commandRedirections, FunctionContext funcContext)_x000D__x000A_   at System.Management.Automation.Interpreter.ActionCallInstruction`6.Run(InterpretedFrame frame)_x000D__x000A_   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)</S>
-                            <Nil N=\"HelpLink\" />
-                            <S N=\"Source\">System.Management.Automation</S>
-                            <I32 N=\"HResult\">-2146233087</I32>
+                            <Nil N="InnerException" />
+                            <S N="TargetSite">System.Collections.Generic.Dictionary`2[System.String,System.Management.Automation.PSObject] PromptForMissingMandatoryParameters(System.Collections.ObjectModel.Collection`1[System.Management.Automation.Host.FieldDescription], System.Collections.ObjectModel.Collection`1[System.Management.Automation.MergedCompiledCommandParameter])</S>
+                            <S N="StackTrace">   at System.Management.Automation.CmdletParameterBinderController.PromptForMissingMandatoryParameters(Collection`1 fieldDescriptionList, Collection`1 missingMandatoryParameters)_x000D__x000A_   at System.Management.Automation.CmdletParameterBinderController.HandleUnboundMandatoryParameters(Int32 validParameterSetCount, Boolean processMissingMandatory, Boolean promptForMandatory, Boolean isPipelineInputExpected, Collection`1&amp; missingMandatoryParameters)_x000D__x000A_   at System.Management.Automation.CmdletParameterBinderController.BindCommandLineParameters(Collection`1 arguments)_x000D__x000A_   at System.Management.Automation.CommandProcessor.BindCommandLineParameters()_x000D__x000A_   at System.Management.Automation.CommandProcessor.Prepare(IDictionary psDefaultParameterValues)_x000D__x000A_   at System.Management.Automation.CommandProcessorBase.DoPrepare(IDictionary psDefaultParameterValues)_x000D__x000A_   at System.Management.Automation.Internal.PipelineProcessor.Start(Boolean incomingStream)_x000D__x000A_   at System.Management.Automation.Internal.PipelineProcessor.SynchronousExecuteEnumerate(Object input)_x000D__x000A_--- End of stack trace from previous location where exception was thrown ---_x000D__x000A_   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()_x000D__x000A_   at System.Management.Automation.Internal.PipelineProcessor.SynchronousExecuteEnumerate(Object input)_x000D__x000A_   at System.Management.Automation.PipelineOps.InvokePipeline(Object input, Boolean ignoreInput, CommandParameterInternal[][] pipeElements, CommandBaseAst[] pipeElementAsts, CommandRedirection[][] commandRedirections, FunctionContext funcContext)_x000D__x000A_   at System.Management.Automation.Interpreter.ActionCallInstruction`6.Run(InterpretedFrame frame)_x000D__x000A_   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)</S>
+                            <Nil N="HelpLink" />
+                            <S N="Source">System.Management.Automation</S>
+                            <I32 N="HResult">-2146233087</I32>
                         </Props>
                     </Obj>
-                    <Nil N=\"TargetObject\" />
-                    <S N=\"FullyQualifiedErrorId\">MissingMandatoryParameter,Spe.Commands.Security.Accounts.GetUserCommand</S>
-                    <Obj N=\"InvocationInfo\" RefId=\"5\">
-                        <TN RefId=\"5\">
+                    <Nil N="TargetObject" />
+                    <S N="FullyQualifiedErrorId">MissingMandatoryParameter,Spe.Commands.Security.Accounts.GetUserCommand</S>
+                    <Obj N="InvocationInfo" RefId="5">
+                        <TN RefId="5">
                             <T>System.Management.Automation.InvocationInfo</T>
                             <T>System.Object</T>
                         </TN>
                         <ToString>System.Management.Automation.InvocationInfo</ToString>
                         <Props>
-                            <Obj N=\"MyCommand\" RefId=\"6\">
-                                <TN RefId=\"6\">
+                            <Obj N="MyCommand" RefId="6">
+                                <TN RefId="6">
                                     <T>System.Management.Automation.CmdletInfo</T>
                                     <T>System.Management.Automation.CommandInfo</T>
                                     <T>System.Object</T>
                                 </TN>
                                 <ToString>Get-User</ToString>
                                 <Props>
-                                    <S N=\"Verb\">Get</S>
-                                    <S N=\"Noun\">User</S>
-                                    <S N=\"HelpFile\">C:\\inetpub\\wwwroot\\sitecore modules\\PowerShell\\Assets\\Spe.dll-Help.maml</S>
-                                    <Nil N=\"PSSnapIn\" />
-                                    <Nil N=\"Version\" />
-                                    <S N=\"ImplementingType\">Spe.Commands.Security.Accounts.GetUserCommand</S>
-                                    <S N=\"Definition\">_x000D__x000A_Get-User [-Identity] &lt;AccountIdentity&gt; [-Authenticated] [&lt;CommonParameters&gt;]_x000D__x000A__x000D__x000A_Get-User -Filter &lt;string&gt; [-Authenticated] [-ResultPageSize &lt;int&gt;] [&lt;CommonParameters&gt;]_x000D__x000A__x000D__x000A_Get-User -Current [&lt;CommonParameters&gt;]_x000D__x000A_</S>
-                                    <S N=\"DefaultParameterSet\">Id</S>
-                                    <Obj N=\"OutputType\" RefId=\"7\">
-                                        <TN RefId=\"7\">
+                                    <S N="Verb">Get</S>
+                                    <S N="Noun">User</S>
+                                    <S N="HelpFile">C:\\inetpub\\wwwroot\\sitecore modules\\PowerShell\\Assets\\Spe.dll-Help.maml</S>
+                                    <Nil N="PSSnapIn" />
+                                    <Nil N="Version" />
+                                    <S N="ImplementingType">Spe.Commands.Security.Accounts.GetUserCommand</S>
+                                    <S N="Definition">_x000D__x000A_Get-User [-Identity] &lt;AccountIdentity&gt; [-Authenticated] [&lt;CommonParameters&gt;]_x000D__x000A__x000D__x000A_Get-User -Filter &lt;string&gt; [-Authenticated] [-ResultPageSize &lt;int&gt;] [&lt;CommonParameters&gt;]_x000D__x000A__x000D__x000A_Get-User -Current [&lt;CommonParameters&gt;]_x000D__x000A_</S>
+                                    <S N="DefaultParameterSet">Id</S>
+                                    <Obj N="OutputType" RefId="7">
+                                        <TN RefId="7">
                                             <T>System.Collections.ObjectModel.ReadOnlyCollection`1[[System.Management.Automation.PSTypeName, System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]</T>
                                             <T>System.Object</T>
                                         </TN>
@@ -97,88 +97,88 @@
                                             <S>Sitecore.Security.Accounts.User</S>
                                         </LST>
                                     </Obj>
-                                    <S N=\"Options\">ReadOnly</S>
-                                    <S N=\"Name\">Get-User</S>
-                                    <S N=\"CommandType\">Cmdlet</S>
-                                    <S N=\"Source\"></S>
-                                    <S N=\"Visibility\">Public</S>
-                                    <S N=\"ModuleName\"></S>
-                                    <Nil N=\"Module\" />
-                                    <S N=\"RemotingCapability\">PowerShell</S>
-                                    <Obj N=\"Parameters\" RefId=\"8\">
-                                        <TN RefId=\"8\">
+                                    <S N="Options">ReadOnly</S>
+                                    <S N="Name">Get-User</S>
+                                    <S N="CommandType">Cmdlet</S>
+                                    <S N="Source"></S>
+                                    <S N="Visibility">Public</S>
+                                    <S N="ModuleName"></S>
+                                    <Nil N="Module" />
+                                    <S N="RemotingCapability">PowerShell</S>
+                                    <Obj N="Parameters" RefId="8">
+                                        <TN RefId="8">
                                             <T>System.Collections.Generic.Dictionary`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[System.Management.Automation.ParameterMetadata, System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]</T>
                                             <T>System.Object</T>
                                         </TN>
                                         <DCT>
                                             <En>
-                                                <S N=\"Key\">Identity</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">Identity</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">Filter</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">Filter</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">Current</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">Current</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">Authenticated</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">Authenticated</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">ResultPageSize</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">ResultPageSize</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">Verbose</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">Verbose</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">Debug</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">Debug</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">ErrorAction</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">ErrorAction</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">WarningAction</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">WarningAction</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">InformationAction</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">InformationAction</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">ErrorVariable</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">ErrorVariable</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">WarningVariable</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">WarningVariable</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">InformationVariable</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">InformationVariable</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">OutVariable</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">OutVariable</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">OutBuffer</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">OutBuffer</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                             <En>
-                                                <S N=\"Key\">PipelineVariable</S>
-                                                <S N=\"Value\">System.Management.Automation.ParameterMetadata</S>
+                                                <S N="Key">PipelineVariable</S>
+                                                <S N="Value">System.Management.Automation.ParameterMetadata</S>
                                             </En>
                                         </DCT>
                                     </Obj>
-                                    <Obj N=\"ParameterSets\" RefId=\"9\">
-                                        <TN RefId=\"9\">
+                                    <Obj N="ParameterSets" RefId="9">
+                                        <TN RefId="9">
                                             <T>System.Collections.ObjectModel.ReadOnlyCollection`1[[System.Management.Automation.CommandParameterSetInfo, System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]</T>
                                             <T>System.Object</T>
                                         </TN>
@@ -190,36 +190,36 @@
                                     </Obj>
                                 </Props>
                                 <MS>
-                                    <S N=\"Namespace\"></S>
-                                    <S N=\"HelpUri\"></S>
-                                    <S N=\"DLL\">C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\Temporary ASP.NET Files\\root\\e22c2559\\92c7e946\\assembly\\dl3\\49477271\\9073869a_2abddb01\\Spe.dll</S>
+                                    <S N="Namespace"></S>
+                                    <S N="HelpUri"></S>
+                                    <S N="DLL">C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\Temporary ASP.NET Files\\root\\e22c2559\\92c7e946\\assembly\\dl3\\49477271\\9073869a_2abddb01\\Spe.dll</S>
                                 </MS>
                             </Obj>
-                            <Obj N=\"BoundParameters\" RefId=\"10\">
-                                <TN RefId=\"10\">
+                            <Obj N="BoundParameters" RefId="10">
+                                <TN RefId="10">
                                     <T>System.Collections.Generic.Dictionary`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]</T>
                                     <T>System.Object</T>
                                 </TN>
                                 <DCT />
                             </Obj>
-                            <Obj N=\"UnboundArguments\" RefId=\"11\">
-                                <TNRef RefId=\"0\" />
+                            <Obj N="UnboundArguments" RefId="11">
+                                <TNRef RefId="0" />
                                 <LST />
                             </Obj>
-                            <I32 N=\"ScriptLineNumber\">1</I32>
-                            <I32 N=\"OffsetInLine\">1</I32>
-                            <I64 N=\"HistoryId\">1</I64>
-                            <S N=\"ScriptName\"></S>
-                            <S N=\"Line\">Get-User_x000D_</S>
-                            <S N=\"PositionMessage\">At line:1 char:1_x000D__x000A_+ Get-User_x000D__x000A_+ ~~~~~~~~</S>
-                            <S N=\"PSScriptRoot\"></S>
-                            <Nil N=\"PSCommandPath\" />
-                            <S N=\"InvocationName\"></S>
-                            <I32 N=\"PipelineLength\">0</I32>
-                            <I32 N=\"PipelinePosition\">0</I32>
-                            <B N=\"ExpectingInput\">false</B>
-                            <Obj N=\"CommandOrigin\" RefId=\"12\">
-                                <TN RefId=\"11\">
+                            <I32 N="ScriptLineNumber">1</I32>
+                            <I32 N="OffsetInLine">1</I32>
+                            <I64 N="HistoryId">1</I64>
+                            <S N="ScriptName"></S>
+                            <S N="Line">Get-User_x000D_</S>
+                            <S N="PositionMessage">At line:1 char:1_x000D__x000A_+ Get-User_x000D__x000A_+ ~~~~~~~~</S>
+                            <S N="PSScriptRoot"></S>
+                            <Nil N="PSCommandPath" />
+                            <S N="InvocationName"></S>
+                            <I32 N="PipelineLength">0</I32>
+                            <I32 N="PipelinePosition">0</I32>
+                            <B N="ExpectingInput">false</B>
+                            <Obj N="CommandOrigin" RefId="12">
+                                <TN RefId="11">
                                     <T>System.Management.Automation.CommandOrigin</T>
                                     <T>System.Enum</T>
                                     <T>System.ValueType</T>
@@ -228,18 +228,18 @@
                                 <ToString>Internal</ToString>
                                 <I32>1</I32>
                             </Obj>
-                            <Nil N=\"DisplayScriptPosition\" />
+                            <Nil N="DisplayScriptPosition" />
                         </Props>
                     </Obj>
-                    <I32 N=\"ErrorCategory_Category\">5</I32>
-                    <S N=\"ErrorCategory_Activity\">Get-User</S>
-                    <S N=\"ErrorCategory_Reason\">ParameterBindingException</S>
-                    <S N=\"ErrorCategory_TargetName\"></S>
-                    <S N=\"ErrorCategory_TargetType\"></S>
-                    <S N=\"ErrorCategory_Message\">InvalidArgument: (:) [Get-User], ParameterBindingException</S>
-                    <B N=\"SerializeExtendedInfo\">false</B>
-                    <S N=\"ErrorDetails_ScriptStackTrace\">at &lt;ScriptBlock&gt;, &lt;No file&gt;: line 1</S>
-                    <Nil N=\"PSMessageDetails\" />
+                    <I32 N="ErrorCategory_Category">5</I32>
+                    <S N="ErrorCategory_Activity">Get-User</S>
+                    <S N="ErrorCategory_Reason">ParameterBindingException</S>
+                    <S N="ErrorCategory_TargetName"></S>
+                    <S N="ErrorCategory_TargetType"></S>
+                    <S N="ErrorCategory_Message">InvalidArgument: (:) [Get-User], ParameterBindingException</S>
+                    <B N="SerializeExtendedInfo">false</B>
+                    <S N="ErrorDetails_ScriptStackTrace">at &lt;ScriptBlock&gt;, &lt;No file&gt;: line 1</S>
+                    <Nil N="PSMessageDetails" />
                 </MS>
             </Obj>
         </LST>

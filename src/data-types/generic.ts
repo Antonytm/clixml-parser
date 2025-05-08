@@ -5,7 +5,8 @@ export function convertGeneric(input: any, property: string): any {
             if (item["#text"] !== undefined) {
                 output[item["@_N"]] = item["#text"];
             } else {
-                output[item["@_N"]] = item;
+                // How to define the type of item["#text"] if it is undefined?
+                output[item["@_N"]] = "";
             }
         });
     } else if (input[property] && typeof input[property] === "object") {
@@ -13,7 +14,7 @@ export function convertGeneric(input: any, property: string): any {
         if (item["#text"] !== undefined) {
             output[item["@_N"]] = item["#text"];
         } else {
-            output[item["@_N"]] = item;
+            output[item["@_N"]] = "";
         }
     }
     return output;

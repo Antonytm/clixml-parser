@@ -19,9 +19,6 @@ const filePath = path.resolve(__dirname, 'test.xml');
 // Read the XML file synchronously
 const xmlData = fs.readFileSync(filePath, 'utf-8');
 
-// Create a new instance of the XML parser
-
-
 // Parse the XML data
 const jsonData = parseXMLString(xmlData);
 

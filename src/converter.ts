@@ -17,7 +17,7 @@ export function convertObject(input: any): any {
     }
 
     if (input["S"] && typeof input["S"] === "string") {
-        output = { ...output, ...convertString(input, "S") };
+        output = { ...output, ...convertString(input, "") };
         return output;
     }
 
@@ -31,7 +31,6 @@ export function convertObject(input: any): any {
             || property === "TS"
             || property === "G"
             || property === "URI"
-            || property === "ToString"
             || property === "Version"
             || property === "Nil"
             || property === "C") {
@@ -54,6 +53,8 @@ export function convertObject(input: any): any {
             // spread the properties into the output object
             const propertyValue = convertObject(input[property]);
             output = { ...output, ...propertyValue };
+        } else if (property === "ToString") {
+            output[property] = input[property];
         }
         else if (property === "@_N"
             || property === "@_Version"

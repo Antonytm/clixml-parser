@@ -41,9 +41,14 @@ function convertObjectSeparately(input: any): any {
     if (input === undefined
         || input === null
         || typeof input === "string") {
+        output.push(input);
         return output;
     }
     for (const item in input) {
+        if (typeof (input[item]) === "string") {
+            output.push({ [item]: input[item] });
+            continue;
+        }
         output.push(convertObject(input[item]));
     }
     return output;
