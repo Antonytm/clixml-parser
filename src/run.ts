@@ -8,6 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { convertObject } from './converter.js';
+import { parseXMLString } from './index.js';
 
 //read test.xml file from the current directory
 
@@ -19,15 +20,10 @@ const filePath = path.resolve(__dirname, 'test.xml');
 const xmlData = fs.readFileSync(filePath, 'utf-8');
 
 // Create a new instance of the XML parser
-const parser = new XMLParser({
-  ignoreAttributes: false,
-  attributeNamePrefix: '@_',
-  parseAttributeValue: true,
-  parseTagValue: true,
-});
+
 
 // Parse the XML data
-const jsonData = parser.parse(xmlData);
+const jsonData = parseXMLString(xmlData);
 
 // Log the parsed JSON data to the console
 //console.log(JSON.stringify(jsonData, null, 2));
