@@ -1,4 +1,4 @@
-<Objs Version=\"1.1.0.1\"
+"<Objs Version=\"1.1.0.1\"
     xmlns=\"http://schemas.microsoft.com/powershell/2004/04\">
     <Obj RefId=\"0\">
         <TN RefId=\"0\">
@@ -328,4 +328,4 @@
             </Obj>
         </LST>
     </Obj>
-</Objs>
+</Objs>"

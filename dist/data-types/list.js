@@ -1,6 +1,5 @@
 import { convertObject } from "../converter.js";
 export function convertList(input) {
-    console.log("List input", input);
     const output = [];
     for (const key1 in input) {
         if (key1 === "LST"
@@ -30,12 +29,13 @@ export function convertList(input) {
             }
         }
     }
-    console.log("List output", output);
     return output;
 }
 function convertObjectSeparately(input) {
     const output = [];
-    if (input === undefined || input === null || typeof input === "string") {
+    if (input === undefined
+        || input === null
+        || typeof input === "string") {
         return output;
     }
     for (const item in input) {
