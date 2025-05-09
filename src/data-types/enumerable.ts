@@ -1,6 +1,6 @@
 import { convertObject } from "../converter.js";
 
-export function convertList(input: any): any {
+export function convertEnumerable(input: any): any {
     const output: any[] = [];
 
     for (const key1 in input) {
@@ -44,12 +44,22 @@ function convertObjectSeparately(input: any): any {
         output.push(input);
         return output;
     }
-    for (const item in input) {
-        if (typeof (input[item]) === "string") {
-            output.push({ [item]: input[item] });
-            continue;
-        }
-        output.push(convertObject(input[item]));
+
+    if (Array.isArray(input) && input.length > 0 &&
+        (typeof input[0] === "string" || typeof input[0] === "number" || typeof input[0] === "boolean")) {
+        input.forEach((item: any) => {
+            output.push(item);
+        });
+        return output;
     }
+
+    if (Array.isArray(input) && input.length > 0) {
+        for (const item in input) {
+            output.push(convertObject(input[item]));
+        }
+    } else if (typeof input === "object" && input !== null) {
+        output.push(convertObject(input));
+    }
+
     return output;
 }

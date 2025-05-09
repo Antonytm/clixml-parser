@@ -3,7 +3,7 @@ import { convertString } from "./data-types/string.js";
 import { convertBoolean } from "./data-types/boolean.js";
 import { convertInteger } from "./data-types/integer.js";
 import { convertDecimal } from "./data-types/decimal.js";
-import { convertList } from "./data-types/list.js";
+import { convertEnumerable } from "./data-types/enumerable.js";
 import { convertObj } from "./data-types/obj.js";
 
 export function convertObject(input: any): any {

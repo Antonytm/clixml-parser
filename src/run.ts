@@ -20,7 +20,17 @@ const filePath = path.resolve(__dirname, 'test.xml');
 const xmlData = fs.readFileSync(filePath, 'utf-8');
 
 // Parse the XML data
-const jsonData = parseXMLString(xmlData);
+const jsonData = {
+    "Obj": {
+        "IE": {
+            "Obj": {
+                "ToString": "Test2",
+            }
+        },
+
+        "@_N": "Test"
+    }
+};
 
 // Log the parsed JSON data to the console
 //console.log(JSON.stringify(jsonData, null, 2));

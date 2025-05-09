@@ -89,4 +89,17 @@ describe("string: convert strings object XMLCLI JSON to proper JSON", () => {
         const result = convertObject(input);
         expect(result).toEqual(expected);
     });
+
+    it("should convert string array XMLCLI JSON to proper JSON", () => {
+        const input = {
+            "S": ["{D26AF0F1-5E54-41F0-B026-C96D4D2BEEA3", "New Value"],
+        };
+
+        const expected = {
+            "0": "{D26AF0F1-5E54-41F0-B026-C96D4D2BEEA3",
+            "1": "New Value",
+        };
+        const result = convertObject(input);
+        expect(result).toEqual(expected);
+    });
 });

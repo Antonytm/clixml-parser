@@ -1,5 +1,5 @@
 import { convertObject } from "../converter.js"
-import { convertList } from "./list.js";
+import { convertEnumerable } from "./enumerable.js";
 
 export function convertObj(input: any, property: string): any {
     const output: any = {}
@@ -23,7 +23,7 @@ function convertOneObject(item: any){
         || item["QUE"] !== undefined
     ) {
         //this object is a collection of objects
-        return convertList(item);
+        return convertEnumerable(item);
     } else {
         return convertObject(item);
     }

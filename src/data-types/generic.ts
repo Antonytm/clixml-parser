@@ -1,6 +1,19 @@
 export function convertGeneric(input: any, property: string): any {
     const output: any = {};
     if (input[property] && Array.isArray(input[property])) {
+
+        if ((input[property] as Array<any>).length > 0
+            && (typeof (input[property][0]) === "string"
+                || typeof (input[property][0]) === "number"
+                || typeof (input[property][0]) === "boolean")
+        ) {
+            const arrayOutput: any[] = [];
+            (input[property] as Array<any>).forEach((item: any) => {
+                arrayOutput.push(item);
+            });
+            return arrayOutput;
+        }
+
         input[property].forEach((item: any) => {
             if (item["#text"] !== undefined) {
                 output[item["@_N"]] = item["#text"];
