@@ -5,6 +5,7 @@ import { convertInteger } from "./data-types/integer.js";
 import { convertDecimal } from "./data-types/decimal.js";
 import { convertEnumerable } from "./data-types/enumerable.js";
 import { convertObj } from "./data-types/obj.js";
+import { convertDictionary } from "./dictionary.js";
 
 export function convertObject(input: any): any {
 
@@ -53,6 +54,9 @@ export function convertObject(input: any): any {
             // spread the properties into the output object
             const propertyValue = convertObject(input[property]);
             output = { ...output, ...propertyValue };
+        } else if (property === "DCT") {
+            const propertyValue =   convertDictionary(input[property]);
+            output = { ...output, ...propertyValue };
         } else if (property === "ToString") {
             output[property] = input[property];
         }
@@ -60,6 +64,9 @@ export function convertObject(input: any): any {
             || property === "@_Version"
             || property === "@_xmlns"
             || property === "@_RefId"
+            || property === "Ref"
+            || property === "TNRef"
+            || property === "TN"
         ) {
             // Ignore the attribute name property
             continue;
