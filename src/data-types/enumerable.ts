@@ -17,7 +17,13 @@ export function convertEnumerable(input: any): any {
                 for (const key2 in input[key1]) {
                     if (typeof input[key1][key2] === "string") {
                         //LST or IE are empty strings
-                        continue;
+                        if (input[key1][key2] === "") {
+                            continue;
+                        }
+                        output.push(input[key1][key2]);
+                    } else if (typeof input[key1][key2] === "number"
+                        || typeof input[key1][key2] === "boolean") {
+                        output.push(input[key1][key2]);
                     } else if (typeof input[key1][key2] === "object") {
                         const objs = convertObjectSeparately(input[key1][key2]);
                         output.push(...objs);
@@ -38,12 +44,6 @@ export function convertEnumerable(input: any): any {
 
 function convertObjectSeparately(input: any): any {
     const output: any[] = [];
-    if (input === undefined
-        || input === null
-        || typeof input === "string") {
-        output.push(input);
-        return output;
-    }
 
     if (Array.isArray(input) && input.length > 0 &&
         (typeof input[0] === "string" || typeof input[0] === "number" || typeof input[0] === "boolean")) {

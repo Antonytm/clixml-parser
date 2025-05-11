@@ -101,4 +101,78 @@ describe("inumerable: convert strings array XMLCLI JSON to proper JSON", () => {
         const result = convertObject(input);
         expect(result).toEqual(expected);
     });
+
+    it("should convert enumerable booleans array to proper JSON", () => {
+        const input = {
+            "Obj": {
+                "IE": {
+                    "B": [
+                        true,
+                        false,
+                        true,
+                    ],
+                }
+            }
+        };
+
+        const expected = {
+            "Obj": [
+                true,
+                false,
+                true,
+            ]
+        };
+        const result = convertObject(input);
+        expect(result).toEqual(expected);
+    });
+
+    it("should convert enumerable boolean to proper JSON", () => {
+        const input = {
+            "Obj": {
+                "LST": {
+                    "B": [
+                        true,
+                    ],
+                }
+            }
+        };
+
+        const expected = {
+            "Obj": [
+                true,
+            ]
+        };
+        const result = convertObject(input);
+        expect(result).toEqual(expected);
+    });
+
+    it("should convert enumerable boolean to proper JSON", () => {
+        const input = {
+            "Objs": {
+              "Obj": {
+                "TN": {
+                  "T": [
+                    "System.Collections.Generic.List`1[[System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]",
+                    "System.Object"
+                  ],
+                  "@_RefId": 0
+                },
+                "LST": {
+                  "B": true
+                },
+                "@_RefId": 0
+              },
+              "@_Version": "1.1.0.1",
+              "@_xmlns": "http://schemas.microsoft.com/powershell/2004/04"
+            }
+          };
+
+        const expected = {
+            "Obj": [
+                true
+            ]
+        };
+        const result = convertObject(input);
+        expect(result).toEqual(expected);
+    });
 });
