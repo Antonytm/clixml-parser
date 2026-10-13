@@ -1,33 +1,36 @@
 {
   "name": "@antonytm/clixml-parser",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A parser for CLIXML data",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
+  "files": ["dist"],
   "scripts": {
     "test": "vitest --coverage --run",
     "build": "tsc",
     "start": "npm run build && node dist/run.js",
-    "dev": "tsc -w"
+    "dev": "tsc -w",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Antonytm/clixml-parser.git"
   },
-  "author": "",
+  "author": "Anton Tishchenko",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Antonytm/clixml-parser/issues"
   },
   "homepage": "https://github.com/Antonytm/clixml-parser#readme",
   "dependencies": {
-    "@types/node": "^22.15.3",
-    "fast-xml-parser": "^5.2.1",
-    "vitest": "^3.1.2"
+    "fast-xml-parser": "^5.2.1"
   },
   "devDependencies": {
+    "@types/node": "^22.15.3",
     "@vitest/coverage-v8": "^3.1.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
   },
   "publishConfig": {
     "access": "public"
